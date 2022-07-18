@@ -46,7 +46,7 @@ func main() {
 	waitGroup.Add(len(virtualInstruments))
 
 	for _, vi := range virtualInstruments {
-		vi.Run(&waitGroup)
+		go vi.Run(&waitGroup)
 	}
 
 	waitGroup.Wait()
