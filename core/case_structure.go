@@ -13,14 +13,15 @@ import "sync"
 type CaseStructureTerminals struct {
 	InputTunnels  []InputTunnel
 	OutputTunnels []OutputTunnel
+	Selector      chan interface{}
 }
 
 type CaseCouple struct {
-	Value                interface{}
-	SubVirtualInstrument VirtualInstrument
+	Value              interface{}
+	VirtualInstruments []VirtualInstrument
 }
 
-type CaseStructere struct {
+type CaseStructure struct {
 	terminals   CaseStructureTerminals
 	caseCouples []CaseCouple
 	defaultCase int
@@ -30,15 +31,15 @@ func NewCaseStructure(
 	terminals CaseStructureTerminals,
 	caseCouples []CaseCouple,
 	defaultCase int,
-) *CaseStructere {
-	return &CaseStructere{
+) *CaseStructure {
+	return &CaseStructure{
 		terminals:   terminals,
 		caseCouples: caseCouples,
 		defaultCase: defaultCase,
 	}
 }
 
-func (my *CaseStructere) Run(parentWaitGroup *sync.WaitGroup) {
+func (my *CaseStructure) Run(parentWaitGroup *sync.WaitGroup) {
 	// TODO
 
 	parentWaitGroup.Done()

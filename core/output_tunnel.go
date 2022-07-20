@@ -8,15 +8,40 @@
 
 package core
 
+import "sync"
+
 const (
-	OutputTunnelLoopModeLastValue = iota
-	OutputTunnelLoopModeIndexing
-	OutputTunnelLoopModeConcentrating
-	OutputTunnelLoopModeConditional
+	OutputTunnelModeLastValue = iota
+	OutputTunnelModeIndexing
+	OutputTunnelModeConcentrating
+	OutputTunnelModeConditional
 )
 
+type OutputTunnelTerminals struct {
+	Inside  chan interface{}
+	Outside chan interface{}
+}
+
 type OutputTunnel struct {
-	Inside   chan interface{}
-	Outside  chan interface{}
-	LoopMode int
+	terminlas InputTunnelTerminals
+	mode      int
+}
+
+func NewOutputTunnel(terminals InputTunnelTerminals, mode int) *OutputTunnel {
+	return &OutputTunnel{
+		terminlas: terminals,
+		mode:      mode,
+	}
+}
+
+func (my *OutputTunnel) ExternalEntry(parentWaitGroup *sync.WaitGroup) {
+	//TODO
+
+	parentWaitGroup.Done()
+}
+
+func (my *OutputTunnel) InternalEntry(parentWaitGroup *sync.WaitGroup) {
+	//TODO
+
+	parentWaitGroup.Done()
 }

@@ -8,8 +8,33 @@
 
 package core
 
+import "sync"
+
+type InputTunnelTerminals struct {
+	Inside  chan interface{}
+	Outside chan interface{}
+}
+
 type InputTunnel struct {
-	Inside       chan interface{}
-	Outside      chan interface{}
-	LoopIndexing bool
+	terminlas InputTunnelTerminals
+	indexing  bool
+}
+
+func NewInputTunnel(terminals InputTunnelTerminals, indexing bool) *InputTunnel {
+	return &InputTunnel{
+		terminlas: terminals,
+		indexing:  indexing,
+	}
+}
+
+func (my *InputTunnel) ExternalEntry(parentWaitGroup *sync.WaitGroup) {
+	//TODO
+
+	parentWaitGroup.Done()
+}
+
+func (my *InputTunnel) InternalEntry(parentWaitGroup *sync.WaitGroup) {
+	//TODO
+
+	parentWaitGroup.Done()
 }
